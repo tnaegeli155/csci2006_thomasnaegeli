@@ -15,10 +15,10 @@ function getBody(){
           <h1>Art Store</h1>
           <nav>
               <ul>
-                  <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
-                  <li><a href="#">About Us</a></li>
-                  <li><a href="#">Art Works</a></li>
-                  <li><a href="#">Artists</a></li>
+              <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
+              <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
+              <li><a href="#">Art Works</a></li>
+              <li><a href="#">Artists</a></li>
               </ul>
           </nav>
       </header>
@@ -119,7 +119,7 @@ function accountDetails(){
       <header>
           <nav class="user">
               <ul>
-                  <li><a href="http://localhost/account.php?q=myAccount">My Account</a></li>
+                  <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
                   <li><a href="#">Wish List</a></li>
                   <li><a href="#">Shopping Cart</a></li>
               </ul>
@@ -128,7 +128,7 @@ function accountDetails(){
           <nav>
               <ul>
                   <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
-                  <li><a href="#">About Us</a></li>
+                  <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
                   <li><a href="#">Art Works</a></li>
                   <li><a href="#">Artists</a></li>
               </ul>
@@ -155,7 +155,34 @@ function accountDetails(){
   echo '<footer>
       <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
   </footer>
-</body>';
+</body>';}
+function aboutUs(){
+  echo '<body>
+      <header>
+          <nav class="user">
+              <ul>
+                  <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
+                  <li><a href="#">Wish List</a></li>
+                  <li><a href="#">Shopping Cart</a></li>
+              </ul>
+          </nav>
+          <h1>Art Store</h1>
+          <nav>
+              <ul>
+                  <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
+                  <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
+                  <li><a href="#">Art Works</a></li>
+                  <li><a href="#">Artists</a></li>
+              </ul>
+          </nav>
+      </header>';
+      echo '<body>
+      <p>This website allows you to browse and add pieces of artwork to your cart to purchase.
+       All purchases will go to charities to help new upcoming artists get spots in galleries to become known.</p>
+       <footer>
+           <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
+       </footer>
+       </body>';
 }
 ?>
 <!DOCTYPE html>
@@ -182,5 +209,7 @@ if($check!=true||$check!=false){
     accountDetails();
   }elseif($query=="Home"){
     getBody();
-  }}?>
+  }elseif($query=="About"){
+    aboutUs();
+  }};?>
 </html>
