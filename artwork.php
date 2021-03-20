@@ -1,4 +1,8 @@
+<?php require 'util.php';
+connectDb($user, $pass, $dbName);
+?>
 <?php
+include 'classes.php';
 function getTitle(){
   echo "<title>Lebrun - Self-portrait in a Straw Hat</title>";
 }
@@ -17,8 +21,8 @@ function getBody(){
               <ul>
               <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
               <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
-              <li><a href="#">Art Works</a></li>
-              <li><a href="#">Artists</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artwork">Art Works</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artist">Artists</a></li>
               </ul>
           </nav>
       </header>
@@ -127,10 +131,10 @@ function accountDetails(){
           <h1>Art Store</h1>
           <nav>
               <ul>
-                  <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
-                  <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
-                  <li><a href="#">Art Works</a></li>
-                  <li><a href="#">Artists</a></li>
+              <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
+              <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artwork">Art Works</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artist">Artists</a></li>
               </ul>
           </nav>
       </header>';
@@ -169,10 +173,10 @@ function aboutUs(){
           <h1>Art Store</h1>
           <nav>
               <ul>
-                  <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
-                  <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
-                  <li><a href="#">Art Works</a></li>
-                  <li><a href="#">Artists</a></li>
+              <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
+              <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artwork">Art Works</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artist">Artists</a></li>
               </ul>
           </nav>
       </header>';
@@ -183,6 +187,60 @@ function aboutUs(){
            <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
        </footer>
        </body>';
+}
+function artistList(){
+  echo '<body>
+      <header>
+          <nav class="user">
+              <ul>
+                  <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
+                  <li><a href="#">Wish List</a></li>
+                  <li><a href="#">Shopping Cart</a></li>
+              </ul>
+          </nav>
+          <h1>Art Store</h1>
+          <nav>
+              <ul>
+              <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
+              <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artwork">Art Works</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artist">Artists</a></li>
+              </ul>
+          </nav>
+      </header>';
+      echo '<h1>List of Artists</h1><br><p>Artist Name followed by their ID number</p>';
+      Artist::listArtist();
+      echo '<footer>
+          <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
+      </footer>
+      </body>';
+}
+function artworkList(){
+  echo '<body>
+      <header>
+          <nav class="user">
+              <ul>
+                  <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
+                  <li><a href="#">Wish List</a></li>
+                  <li><a href="#">Shopping Cart</a></li>
+              </ul>
+          </nav>
+          <h1>Art Store</h1>
+          <nav>
+              <ul>
+                  <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
+                  <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
+                  <li><a href="http://localhost/artwork.php?q=Artwork">Art Works</a></li>
+                  <li><a href="http://localhost/artwork.php?q=Artist">Artists</a></li>
+              </ul>
+          </nav>
+      </header>';
+      echo '<h1>List of Artwork</h1><br><p>Artwork Name followed by the info and ID</p>';
+      Artwork::listArtwork();
+      echo '<footer>
+          <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
+      </footer>
+      </body>';
 }
 ?>
 <!DOCTYPE html>
@@ -211,5 +269,9 @@ if($check!=true||$check!=false){
     getBody();
   }elseif($query=="About"){
     aboutUs();
+  }else if($query=="Artist"){
+    artistList();
+  }else if($query=="Artwork"){
+    artworkList();
   }};?>
 </html>
