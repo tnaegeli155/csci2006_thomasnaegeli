@@ -1,5 +1,6 @@
 <?php require 'util.php';
 connectDb($user, $pass, $dbName);
+session_start();
 ?>
 <?php
 include 'classes.php';
@@ -9,13 +10,7 @@ function getTitle(){
 function getBody(){
   echo '<body>
       <header>
-          <nav class="user">
-              <ul>
-                  <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
-                  <li><a href="#">Wish List</a></li>
-                  <li><a href="#">Shopping Cart</a></li>
-              </ul>
-          </nav>
+      '.navbar().'
           <h1>Art Store</h1>
           <nav>
               <ul>
@@ -35,7 +30,9 @@ function getBody(){
                       <p>The painting appears, after cleaning, to be an autograph replica of a picture, the original of which was painted in Brussels in 1782 in free imitation of Rubens’s ’Chapeau de Paille’, which LeBrun had seen in Antwerp. It was
                           exhibited in Paris in 1782 at the Salon de la Correspondance. LeBrun’s original is recorded in a private collection in France.</p>
                       <p class="list_price">$700</p>
-                      <div class="actions"><a href="#">Add to Wish List</a><a href="#">Add to Shopping Cart</a></div>
+                      <div class="actions">';
+                      if(isset($_SESSION['username'])){echo '<a href="addwish.php?q=Self-portrait in a Straw Hat">Add to Wish List</a>';}
+                      echo ' <a href="addcart.php?q=Self-portrait in a Straw Hat">Add to Shopping Cart</a></div>
                       <table class="artwork_info">
                           <caption>Product Details</caption>
                           <tbody>
@@ -76,7 +73,10 @@ function getBody(){
                           <p><a href="#293">Still Life with Flowers in a Glass Vase</a></p>
                       </figcaption>
                   </figure>
-                  <div class="actions"><a href="#">View</a><a href="#">Wish</a><a href="#">Cart</a></div>
+                  <div class="actions"><a href="#">View</a> ';
+                  if(isset($_SESSION['username'])){
+                    echo '<a href="addwish.php?q=Still Life with Flowers in a Glass Vase">Wish</a>';}
+                  echo ' <a href="#">Cart</a></div>
               </div>
               <div class="relatedArt">
                   <figure><img src="artwork/small/183.jpg" alt="Portrait of Alida Christina Assink" title="Portrait of Alida Christina Assink">
@@ -84,7 +84,10 @@ function getBody(){
                           <p><a href="#183">Portrait of Alida Christina Assink</a></p>
                       </figcaption>
                   </figure>
-                  <div class="actions"><a href="#">View</a><a href="#">Wish</a><a href="#">Cart</a></div>
+                  <div class="actions"><a href="#">View</a> ';
+                  if(isset($_SESSION['username'])){
+                    echo '<a href="addwish.php?q=Portrait of Alida Christina Assink">Wish</a>';}
+                  echo ' <a href="#">Cart</a></div>
               </div>
               <div class="relatedArt">
                   <figure><img src="artwork/small/820.jpg" alt="Self-portrait" title="Self-portrait">
@@ -92,7 +95,10 @@ function getBody(){
                           <p><a href="#820">Self-portrait</a></p>
                       </figcaption>
                   </figure>
-                  <div class="actions"><a href="#">View</a><a href="#">Wish</a><a href="#">Cart</a></div>
+                  <div class="actions"><a href="#">View</a> ';
+                  if(isset($_SESSION['username'])){
+                    echo '<a href="addwish.php?q=Self-portrait">Wish</a>';}
+                  echo ' <a href="#">Cart</a></div>
               </div>
               <div class="relatedArt">
                   <figure><img src="artwork/small/374.jpg" alt="William II, Prince of Orange, and his Bride, Mary Stuart" title="William II, Prince of Orange, and his Bride, Mary Stuart">
@@ -100,7 +106,10 @@ function getBody(){
                           <p><a href="#374">William II, Prince of Orange, and his Bride, Mary Stuart</a></p>
                       </figcaption>
                   </figure>
-                  <div class="actions"><a href="#">View</a><a href="#">Wish</a><a href="#">Cart</a></div>
+                  <div class="actions"><a href="#">View</a> ';
+                  if(isset($_SESSION['username'])){
+                    echo '<a href="addwish.php?q=William II, Prince of Orange, and his Bride, Mary Stuart">Wish</a>';}
+                  echo ' <a href="#">Cart</a></div>
               </div>
               <div class="relatedArt">
                   <figure><img src="artwork/small/849.jpg" alt="Milkmaid" title="Milkmaid">
@@ -108,7 +117,10 @@ function getBody(){
                           <p><a href="#849">Milkmaid</a></p>
                       </figcaption>
                   </figure>
-                  <div class="actions"><a href="#">View</a><a href="#">Wish</a><a href="#">Cart</a></div>
+                  <div class="actions"><a href="#">View</a> ';
+                  if(isset($_SESSION['username'])){
+                    echo '<a href="addwish.php?q=Milkmaid">Wish</a>';}
+                  echo ' <a href="#">Cart</a></div>
               </div>
           </article>
       </main>
@@ -121,13 +133,7 @@ function getBody(){
 function accountDetails(){
   echo '<body>
       <header>
-          <nav class="user">
-              <ul>
-                  <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
-                  <li><a href="#">Wish List</a></li>
-                  <li><a href="#">Shopping Cart</a></li>
-              </ul>
-          </nav>
+      '.navbar().'
           <h1>Art Store</h1>
           <nav>
               <ul>
@@ -163,13 +169,7 @@ function accountDetails(){
 function aboutUs(){
   echo '<body>
       <header>
-          <nav class="user">
-              <ul>
-                  <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
-                  <li><a href="#">Wish List</a></li>
-                  <li><a href="#">Shopping Cart</a></li>
-              </ul>
-          </nav>
+      '.navbar().'
           <h1>Art Store</h1>
           <nav>
               <ul>
@@ -191,13 +191,7 @@ function aboutUs(){
 function artistList(){
   echo '<body>
       <header>
-          <nav class="user">
-              <ul>
-                  <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
-                  <li><a href="#">Wish List</a></li>
-                  <li><a href="#">Shopping Cart</a></li>
-              </ul>
-          </nav>
+      '.navbar().'
           <h1>Art Store</h1>
           <nav>
               <ul>
@@ -218,20 +212,14 @@ function artistList(){
 function artworkList(){
   echo '<body>
       <header>
-          <nav class="user">
-              <ul>
-                  <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
-                  <li><a href="#">Wish List</a></li>
-                  <li><a href="#">Shopping Cart</a></li>
-              </ul>
-          </nav>
+      '.navbar().'
           <h1>Art Store</h1>
           <nav>
               <ul>
-                  <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
-                  <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
-                  <li><a href="http://localhost/artwork.php?q=Artwork">Art Works</a></li>
-                  <li><a href="http://localhost/artwork.php?q=Artist">Artists</a></li>
+              <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
+              <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artwork">Art Works</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artist">Artists</a></li>
               </ul>
           </nav>
       </header>';
@@ -241,6 +229,89 @@ function artworkList(){
           <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
       </footer>
       </body>';
+}
+function wishList(){
+
+}
+function navbar(){
+  if(isset($_SESSION['username'])){
+    echo '<nav class="user">
+        <ul>
+            <li><a href="logout.php">Logout</a></li>
+            <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
+            <li><a href="#">Wish List</a></li>
+            <li><a href="#">Shopping Cart</a></li>
+        </ul>
+    </nav>';
+  }else{
+    echo '<nav class="user">
+        <ul>
+            <li><a href="artwork.php?q=SignIn">Sign-in</a></li>
+            <li><a href="artwork.php?q=SignUp">Sign-up</a></li>
+            <li><a href="#">Shopping Cart</a></li>
+        </ul>
+    </nav>';
+  }
+}
+function signIn(){
+  echo '<body>
+      <header>
+      '.navbar().'
+          <h1>Art Store</h1>
+          <nav>
+              <ul>
+              <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
+              <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artwork">Art Works</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artist">Artists</a></li>
+              </ul>
+          </nav>
+      </header>';
+      echo '<h1>Sign In</h1>
+      <form method="post" action="signin.php">
+      <label>Enter Username: </label>
+      <input type="text" id="userName" name="userName" required><br>
+      <label>Enter Password: </label>
+      <input type="password" id="userPass" name="userPass" required><br>
+      <input type="submit" name="submit" id="submit"><br>
+      </form>
+      <h1><a href="artwork.php">logout</a></h1>';
+      echo '<footer>
+          <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
+      </footer>
+    </body>';
+}
+function signUp(){
+  echo '<body>
+      <header>
+      '.navbar().'
+          <h1>Art Store</h1>
+          <nav>
+              <ul>
+              <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
+              <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artwork">Art Works</a></li>
+              <li><a href="http://localhost/artwork.php?q=Artist">Artists</a></li>
+              </ul>
+          </nav>
+      </header>';
+      echo '<h1>Sign Up</h1>
+      <form method="post" action="signup.php">
+      <label>Enter Username: </label>
+      <input type="text" id="userName" name="userName" required><br>
+      <label>Enter Password: </label>
+      <input type="password" id="userPass" name="userPass" required><br>
+      <label>Full Name: </label>
+      <input type="text" id="fullName" name="fullName" required><br>
+      <label>Address: </label>
+      <input type="text" id="address" name="address" required><br>
+      <input type="submit" name="submit" id="submit"><br>
+      </form>
+      <h1><a href="artwork.php">logout</a></h1>';
+      echo '<footer>
+          <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
+      </footer>
+    </body>';
 }
 ?>
 <!DOCTYPE html>
@@ -273,5 +344,10 @@ if($check!=true||$check!=false){
     artistList();
   }else if($query=="Artwork"){
     artworkList();
-  }};?>
+  }else if($query=="SignUp"){
+    signUp();
+  }else if($query=="SignIn"){
+    signIn();
+  }
+}?>
 </html>

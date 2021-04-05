@@ -5,6 +5,8 @@ function connectDb($user, $pass, $dbName){
 
     $pdo = new PDO($dbName,$user,$pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    echo '<script>alert("connection success")</script>';
     #$sql = "";
     #$result = $pdo->query($sql);
     $pdo = null;
@@ -115,7 +117,7 @@ function removeWishlist(){
 
     $sql="DELETE FROM WishlistItem
     WHERE wl_customer=?
-    AND wl_artwork=?";
+    AND wl_artwork=?"
 
     $result = $pdo->$query($sql);
   }
@@ -149,6 +151,22 @@ function markAsOrdered(){
     WHERE oi_orderNum= -1
     AND oi_customer=?
     AND oi_artwork=?";
+
+    $result = $pdo->$query($sql);
+  }
+  catch(PDOException $e){
+    die ($e->getMessage());
+  }
+}
+function orderHistory(){
+  try{
+    $pdo = new PDO($dbName,$user,$pass);
+    $pod->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql="SELECT *
+    FROM OrderItem
+    WHERE oi_orderNum > -1
+    AND oi_customer=?";
 
     $result = $pdo->$query($sql);
   }
