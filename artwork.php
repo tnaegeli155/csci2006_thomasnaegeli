@@ -144,7 +144,7 @@ function accountDetails(){
               </ul>
           </nav>
       </header>';
-  echo '<form action="/artwork.php" method="post">';
+  echo '<form action="/artwork.php" name="modify" onsubmit="return validateModify()" method="post">';
   echo '<label>Name: </label>';
   echo '<input type="text" name="Name" value="Name"><br>';
   echo '<label>Username: </label>';
@@ -314,6 +314,11 @@ function signUp(){
     </body>';
 }
 ?>
+<script type="text/javascript">
+function validateModify(){
+var checkName = document.forms["modify"]["Name"].value;
+}
+</script>
 <!DOCTYPE html>
 <?php
 if(!empty($_POST)){
