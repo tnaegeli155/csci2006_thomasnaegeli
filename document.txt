@@ -1,0 +1,26 @@
+User Types
+
+Visitor($_SESSION[‘type’]=NULL)
+
+Will not have wishlist links
+
+Cant access my account link
+
+Customer($_SESSION[‘type’]=”customer”)
+
+Can add wishlist items
+
+Myaccount page for updating account info.
+
+Artist($_SESSION[‘type’]=”artist”) #to Be Added
+
+All same selections as customer
+
+Additional page for adding artwork to database for sale
+
+
+
+Adding additional levels of account types:
+
+In the future adding a account type will either add a column to the customer table with account type, or a new table
+with user id numbers referencing to accounts with the identifier of account type. 
