@@ -144,7 +144,28 @@ function accountDetails(){
               </ul>
           </nav>
       </header>';
-  echo '<form action="/artwork.php" name="modify" onsubmit="return validateModify()" method="post">';
+      try{
+        include 'config.php';
+
+        $search = $_SESSION['username'];
+        $pdo = new PDO($dbName,$user,$pass);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT *
+        FROM Customer
+        WHERE customer_id='$search'";
+
+        $result = $pdo->query($sql);
+        $row = $result->fetch();
+
+        echo '<p>UserName: '.$row['customer_username'].'</p>';
+        echo '<p>Password Hashed: '.$row["customer_passhash"].'</p>';
+        echo '<p>Full Name: '.$row["customer_fullName"].'</p>';
+        echo '<p>Address: '.$row["customer_addr"].'</p>';
+      }catch(PDOException $e){
+        die ($e->getMessage());
+      }
+  echo '<form action="update.php" name="modify" onsubmit="return validateModify()" method="post">';
   echo '<label>Name: </label>';
   echo '<input type="text" name="Name" value="Name"><br>';
   echo '<label>Username: </label>';
@@ -240,8 +261,11 @@ function navbar(){
             <li><a href="logout.php">Logout</a></li>
             <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
             <li><a href="#">Wish List</a></li>
-            <li><a href="#">Shopping Cart</a></li>
-        </ul>
+            <li><a href="#">Shopping Cart</a></li>';
+            if($_SESSION['type']=="artist"){
+              echo '<li><a href="artwork.php?q=addArt">Add Art</a></li>';
+            }
+    echo '</ul>
     </nav>';
   }else{
     echo '<nav class="user">
@@ -313,20 +337,72 @@ function signUp(){
       </footer>
     </body>';
 }
+function addArt(){
+  if($_SESSION['type']!="artist"){
+    echo '<h1>Access to page Denied</h1>
+    <h3><a href="artwork.php">Return</a></h3>';
+  }else{
+    echo '<body>
+        <header>
+        '.navbar().'
+            <h1>Art Store</h1>
+            <nav>
+                <ul>
+                <li><a href="http://localhost/artwork.php?q=Home">Home</a></li>
+                <li><a href="http://localhost/artwork.php?q=About">About Us</a></li>
+                <li><a href="http://localhost/artwork.php?q=Artwork">Art Works</a></li>
+                <li><a href="http://localhost/artwork.php?q=Artist">Artists</a></li>
+                </ul>
+            </nav>
+        </header>';
+    echo '<h1>Adding Art Page</h1>
+    <form action="update.php" name="modify" onsubmit="return validateModify()" method="post">';
+    echo '<label>Name: </label>';
+    echo '<input type="text" name="Name" value="Name"><br>';
+    echo '<label>Username: </label>';
+    echo '<input type="text" name="Username" value="Username"><br>';
+    echo '<label>Password: </label>';
+    echo '<input type="text" name="Password" value="Password"><br>';
+    echo '<label>Address: </label>';
+    echo '<input type="text" name="address1" value="Address"><br>';
+    echo '<input type="text" name="address2" value="Apt or Unit"><br>';
+    echo '<label>City: </label>';
+    echo '<input type="text" name="City" value="City"><br>';
+    echo '<label>State: </label>';
+    echo '<input type="text" name="state" value="State"><br>';
+    echo '<label>ZIP: </label>';
+    echo '<input type="text" name="Zip" value="Zip"><br>';
+    echo '<input type="submit" name="Save Changes" value="Save Changes">';
+    echo '</form>';
+    echo '<footer>
+        <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
+    </footer>
+  </body>';
+  }
+}
 ?>
 <script type="text/javascript">
 function validateModify(){
 var checkName = document.forms["modify"]["Name"].value;
+var checkPass = document.forms["modify"]["Password"].value;
+var passCode = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20})/;
+var nameCode = /\s/;
+if(nameCode.test(checkName)!=true){
+  alert("Name needs to include a space");
+  return false;
 }
+if(passCode.test(checkPass)!=true){
+  alert("Password does not match requirements");
+  return false;
+}
+alert("Changes saved");
+}
+
+
 </script>
 <!DOCTYPE html>
 <?php
-if(!empty($_POST)){
-  echo '<script>alert("Changes Saved")</script>';
-}
 $check = isset($_GET['q']);
-if($check!=true||$check!=false){
-}
 ?>
 <html>
 <head>
@@ -353,6 +429,8 @@ if($check!=true||$check!=false){
     signUp();
   }else if($query=="SignIn"){
     signIn();
+  }else if($query=="addArt"){
+    addArt();
   }
 }?>
 </html>
