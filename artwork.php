@@ -1,6 +1,7 @@
 <?php require 'util.php';
 connectDb($user, $pass, $dbName);
 session_start();
+$_SESSION['seller']="true";
 ?>
 <?php
 include 'classes.php';
@@ -10,7 +11,7 @@ function getTitle(){
 function getBody(){
   echo '<body>
       <header>
-      '.navbar().'
+      '.getBanner().navbar().'
           <h1>Art Store</h1>
           <nav>
               <ul>
@@ -262,7 +263,7 @@ function navbar(){
             <li><a href="http://localhost/artwork.php?q=myAccount">My Account</a></li>
             <li><a href="#">Wish List</a></li>
             <li><a href="#">Shopping Cart</a></li>';
-            if($_SESSION['type']=="artist"){
+            if($_SESSION['seller']=="true"){
               echo '<li><a href="artwork.php?q=addArt">Add Art</a></li>';
             }
     echo '</ul>
@@ -329,6 +330,8 @@ function signUp(){
       <input type="text" id="fullName" name="fullName" required><br>
       <label>Address: </label>
       <input type="text" id="address" name="address" required><br>
+      <label>Seller? </label>
+      <input type="checkbox" id="seller" name="seller" value="true"><br>
       <input type="submit" name="submit" id="submit"><br>
       </form>
       <h1><a href="artwork.php">logout</a></h1>';
@@ -338,7 +341,7 @@ function signUp(){
     </body>';
 }
 function addArt(){
-  if($_SESSION['type']!="artist"){
+  if($_SESSION['seller']!="true"){
     echo '<h1>Access to page Denied</h1>
     <h3><a href="artwork.php">Return</a></h3>';
   }else{
@@ -356,22 +359,13 @@ function addArt(){
             </nav>
         </header>';
     echo '<h1>Adding Art Page</h1>
-    <form action="update.php" name="modify" onsubmit="return validateModify()" method="post">';
-    echo '<label>Name: </label>';
+    <form action="addart.php" name="addart" method="post">';
+    echo '<label>Art Name: </label>';
     echo '<input type="text" name="Name" value="Name"><br>';
-    echo '<label>Username: </label>';
-    echo '<input type="text" name="Username" value="Username"><br>';
+    echo '<label>Price : $ </label>';
+    echo '<input type="text" name="Price" value="Price"><br>';
     echo '<label>Password: </label>';
-    echo '<input type="text" name="Password" value="Password"><br>';
-    echo '<label>Address: </label>';
-    echo '<input type="text" name="address1" value="Address"><br>';
-    echo '<input type="text" name="address2" value="Apt or Unit"><br>';
-    echo '<label>City: </label>';
-    echo '<input type="text" name="City" value="City"><br>';
-    echo '<label>State: </label>';
-    echo '<input type="text" name="state" value="State"><br>';
-    echo '<label>ZIP: </label>';
-    echo '<input type="text" name="Zip" value="Zip"><br>';
+    echo '<input type="textfield" name="Descripion" value="Description"><br>';
     echo '<input type="submit" name="Save Changes" value="Save Changes">';
     echo '</form>';
     echo '<footer>
@@ -380,6 +374,27 @@ function addArt(){
   </body>';
   }
 }
+function getBanner(){
+  $pictureList=array();
+  for($i=1;$i<58;$i++){
+    $pictureList[$i]='/artwork/medium/'.$i.'.png';
+  }
+  $pictureSrc=rand(1,57);
+  echo '<div id="bannerImage" style="width:100%;max-height:300px;">
+  <script>
+  var elem=document.createElement("img");
+  elem.setAttribute("id", "flip");
+  elem.setAttribute("src", "/artwork/medium/'.$pictureSrc.'.png");
+  elem.setAttribute("height", "200");
+  elem.setAttribute("width", "100%");
+  elem.setAttribute("alt", "Arts");
+  document.getElementById("bannerImage").appendChild(elem);
+  setInterval(function(){
+    var location = "/artwork/medium/"
+    var update = Math.floor(Math.random()*57)+1;
+    var filetype = ".png";
+  document.getElementById("flip").src=location+update+filetype
+},3500);</script></div>';}
 ?>
 <script type="text/javascript">
 function validateModify(){
@@ -433,4 +448,5 @@ $check = isset($_GET['q']);
     addArt();
   }
 }?>
+
 </html>
