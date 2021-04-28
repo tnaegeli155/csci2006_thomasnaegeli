@@ -13,6 +13,10 @@ function addCustomer($userName, $userPass, $fullName, $address){
   $row=$result->fetch();
   session_start();
   $_SESSION['username']=$row['customer_id'];
+  if($_POST['seller']=="true"){
+    $_SESSION['seller']="true";
+    var_dump($_SESSION['seller']);
+  }
   header("Location: artwork.php");
   echo '<script>alert("User Added")</script>';
 }catch(PDOException $e){
