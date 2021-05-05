@@ -9,7 +9,7 @@ function findUser(){
     $pdo = new PDO($dbName,$user,$pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $sql = "SELECT customer_id,customer_username
+    $sql = "SELECT customer_id,customer_username,customer_type
     FROM Customer
     WHERE customer_username = '$username'
     AND customer_passhash = '$userPass'";
@@ -22,6 +22,11 @@ function findUser(){
     }elseif($row['customer_username']==$username) {
       session_start();
       $_SESSION['username']=$row['customer_id'];
+      if($row['customer_type']=="seller"){
+        $_SESSION['seller']="true";
+      }elseif($row['customer_type']!="seller"){
+        $_SESSION['seller']="false";
+      }
       header("Location: artwork.php");
       echo '<script>alert("sign in success")</script>';
     }else{

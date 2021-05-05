@@ -1,7 +1,6 @@
 <?php require 'util.php';
 connectDb($user, $pass, $dbName);
 session_start();
-$_SESSION['seller']="true";
 ?>
 <?php
 include 'classes.php';
@@ -166,7 +165,7 @@ function accountDetails(){
       }catch(PDOException $e){
         die ($e->getMessage());
       }
-  echo '<form action="update.php" name="modify" onsubmit="return validateModify()" method="post">';
+  echo '<main><form action="update.php" name="modify" onsubmit="return validateModify()" method="post">';
   echo '<label>Name: </label>';
   echo '<input type="text" name="Name" value="Name"><br>';
   echo '<label>Username: </label>';
@@ -183,7 +182,7 @@ function accountDetails(){
   echo '<label>ZIP: </label>';
   echo '<input type="text" name="Zip" value="Zip"><br>';
   echo '<input type="submit" name="Save Changes" value="Save Changes">';
-  echo '</form>';
+  echo '</form></main>';
   echo '<footer>
       <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
   </footer>
@@ -202,9 +201,9 @@ function aboutUs(){
               </ul>
           </nav>
       </header>';
-      echo '<body>
+      echo '<main>
       <p>This website allows you to browse and add pieces of artwork to your cart to purchase.
-       All purchases will go to charities to help new upcoming artists get spots in galleries to become known.</p>
+       All purchases will go to charities to help new upcoming artists get spots in galleries to become known.</p></main>
        <footer>
            <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
        </footer>
@@ -224,9 +223,9 @@ function artistList(){
               </ul>
           </nav>
       </header>';
-      echo '<h1>List of Artists</h1><br><p>Artist Name followed by their ID number</p>';
+      echo '<main><h1>List of Artists</h1><br><p>Artist Name followed by their ID number</p>';
       Artist::listArtist();
-      echo '<footer>
+      echo '</main><footer>
           <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
       </footer>
       </body>';
@@ -245,9 +244,9 @@ function artworkList(){
               </ul>
           </nav>
       </header>';
-      echo '<h1>List of Artwork</h1><br><p>Artwork Name followed by the info and ID</p>';
+      echo '<main><h1>List of Artwork</h1><br><p>Artwork Name followed by the info and ID</p>';
       Artwork::listArtwork();
-      echo '<footer>
+      echo '</main><footer>
           <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
       </footer>
       </body>';
@@ -292,7 +291,7 @@ function signIn(){
               </ul>
           </nav>
       </header>';
-      echo '<h1>Sign In</h1>
+      echo '<main><h1>Sign In</h1>
       <form method="post" action="signin.php">
       <label>Enter Username: </label>
       <input type="text" id="userName" name="userName" required><br>
@@ -301,7 +300,7 @@ function signIn(){
       <input type="submit" name="submit" id="submit"><br>
       </form>
       <h1><a href="artwork.php">logout</a></h1>';
-      echo '<footer>
+      echo '</main><footer>
           <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
       </footer>
     </body>';
@@ -320,7 +319,7 @@ function signUp(){
               </ul>
           </nav>
       </header>';
-      echo '<h1>Sign Up</h1>
+      echo '<main><h1>Sign Up</h1>
       <form method="post" action="signup.php">
       <label>Enter Username: </label>
       <input type="text" id="userName" name="userName" required><br>
@@ -331,11 +330,11 @@ function signUp(){
       <label>Address: </label>
       <input type="text" id="address" name="address" required><br>
       <label>Seller? </label>
-      <input type="checkbox" id="seller" name="seller" value="true"><br>
+      <input type="checkbox" id="seller" name="seller" value="seller"><br>
       <input type="submit" name="submit" id="submit"><br>
       </form>
       <h1><a href="artwork.php">logout</a></h1>';
-      echo '<footer>
+      echo '</main><footer>
           <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
       </footer>
     </body>';
@@ -358,7 +357,7 @@ function addArt(){
                 </ul>
             </nav>
         </header>';
-    echo '<h1>Adding Art Page</h1>
+    echo '<main><h1>Adding Art Page</h1>
     <form action="addart.php" name="addart" method="post">';
     echo '<label>Art Name: </label>';
     echo '<input type="text" name="Name" value="Name"><br>';
@@ -366,9 +365,11 @@ function addArt(){
     echo '<input type="text" name="Price" value="Price"><br>';
     echo '<label>Password: </label>';
     echo '<input type="textfield" name="Descripion" value="Description"><br>';
+    echo '<label>Image</label>';
+    echo '<input type="file" name="imageSource" id="imageSource"><br>';
     echo '<input type="submit" name="Save Changes" value="Save Changes">';
     echo '</form>';
-    echo '<footer>
+    echo '</main><footer>
         <p>All images are copyright to their owners. This is just a hypothetical site ©2020 Copyright Art Store</p>
     </footer>
   </body>';
@@ -416,6 +417,23 @@ alert("Changes saved");
 
 </script>
 <!DOCTYPE html>
+<style>
+html {
+  background-color:blue;
+}
+nav{
+  background-color:white;
+}
+header {
+  background-color:lightblue;
+}
+main {
+  background-color:grey;
+}
+footer{
+  background-color:red;
+}
+</style>
 <?php
 $check = isset($_GET['q']);
 ?>
